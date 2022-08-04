@@ -1,42 +1,54 @@
-import org.junit.Assert;
 import junit.framework.TestCase;
+import org.junit.Assert;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
+import java.util.Arrays;
+import java.util.Collection;
+
+@RunWith(Parameterized.class)
 public class JSONFieldTest extends TestCase {
+    private String result;
+    private Integer id;
+    private String name;
 
-	public void test_jsonField() {
-		VO vo = new VO();
-		
-		vo.setId(123);
-		vo.setName("xx");
-		
-		String text = JSON.toJSONString(vo);
-		Assert.assertEquals("{\"id\":123}", text);
-	}
+    public JSONFieldTest(Integer id, String name, String result) {
+        configure(id, name, result);
+    }
 
-	public static class VO {
-		private int id;
-		
-		@JSONField(serialize=false)
-		private String name;
+    private void configure(Integer id, String name, String result) {
+        this.id = id;
+        this.name = name;
+        this.result = result;
+    }
 
-		public int getId() {
-			return id;
-		}
+    @Parameterized.Parameters
+    public static Collection<Object[]> getParameters() {
+        return Arrays.asList(new Object[][]{
+                {123, "xx", "{\"id\":123}"},
+                {1, "xx", "{\"id\":1}"},
+                {null, "xx", null}
+        });
+    }
 
-		public void setId(int id) {
-			this.id = id;
-		}
+    @Test
+    public void test_jsonField() {
+        VO vo = new VO();
 
-		public String getName() {
-			return name;
-		}
+        if (this.id == null) {
+            Assert.assertNull(this.result);
+        } else {
+            vo.setId(this.id);
+            vo.setName(this.name);
 
-		public void setName(String name) {
-			this.name = name;
-		}
+            String text = JSON.toJSONString(vo);
+            System.out.println(text);
+            Assert.assertEquals(this.result, text);
+        }
+    }
 
-	}
 }
