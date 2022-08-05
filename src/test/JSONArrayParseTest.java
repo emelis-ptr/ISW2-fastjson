@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
-import junit.framework.TestCase;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -13,7 +12,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
-public class JSONArrayParseTest extends TestCase {
+public class JSONArrayParseTest {
 
     private String text;
     private TypeReference<List<Map<String, Integer>>> typeReference;

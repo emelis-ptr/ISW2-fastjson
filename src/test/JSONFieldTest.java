@@ -1,8 +1,6 @@
-import junit.framework.TestCase;
 import org.junit.Assert;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.annotation.JSONField;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -11,7 +9,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @RunWith(Parameterized.class)
-public class JSONFieldTest extends TestCase {
+public class JSONFieldTest {
     private String result;
     private Integer id;
     private String name;
@@ -46,7 +44,6 @@ public class JSONFieldTest extends TestCase {
             vo.setName(this.name);
 
             String text = JSON.toJSONString(vo);
-            System.out.println(text);
             Assert.assertEquals(this.result, text);
         }
     }
