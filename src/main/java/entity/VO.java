@@ -1,3 +1,5 @@
+package entity;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 public class VO {
